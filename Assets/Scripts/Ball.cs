@@ -11,8 +11,8 @@ public class Ball : MonoBehaviour
     public int scoreLeft;
     public int scoreRight;
 
-    [SerializeField]
-    private float speed = 4;
+    //[SerializeField]
+    public float speed = 4;
     private float origSpeed;
     public Vector2 dir;
     private Vector2 origPos;

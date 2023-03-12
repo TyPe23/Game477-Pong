@@ -16,9 +16,15 @@ public class Abilities : MonoBehaviour
     private Ball Ball;
     public GameObject ball;
 
-    float CooldownTime = 10f;
+    float CooldownDuration = 10f;
+    float SlowTimeDuration = 1f;
+
     bool isSlowTimeCooldown_P1 = false;
     bool isSlowTimeCooldown_P2 = false;
+    bool isActive_SlowTime = false;
+
+    float SlowTimeBallSpeed = 0.5f;
+    float TempBallSpeed;
 
     void Start()
     {
@@ -47,30 +53,53 @@ public class Abilities : MonoBehaviour
     {
         SetPlayer1ActiveAbilities();
         SetPlayer2ActiveAbilities();
-        
-        if (Input.GetKeyDown("1") && Player1Abilities[AbilityType.SlowTime] == true)
+
+        if (Input.GetKeyDown("1") && Player1Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime)
         {
+            // Disable ability
+            isActive_SlowTime = true;
             isSlowTimeCooldown_P1 = true;
             Player1Abilities[AbilityType.SlowTime] = false;
-            // do thing
+
+            // Slow down the ball
             print("Player 1 slowed down time!");
+            StartCoroutine(SlowTime());
+
+            // Place ability on cooldown
             StartCoroutine(P1_SlowTimeCooldown());
         }
 
-        if (Input.GetKeyDown("8") && Player2Abilities[AbilityType.SlowTime] == true)
+        if (Input.GetKeyDown("8") && Player2Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime)
         {
+            // Disable ability
+            isActive_SlowTime = true;
             isSlowTimeCooldown_P2 = true;
             Player2Abilities[AbilityType.SlowTime] = false;
-            // do thing
+
+            // Slow down the ball
             print("Player 2 slowed down time!");
+            StartCoroutine(SlowTime());
+
+            // Place ability on cooldown
             StartCoroutine(P2_SlowTimeCooldown());
         }
+    }
+
+    IEnumerator SlowTime()
+    {
+        TempBallSpeed = Ball.speed;
+        Ball.speed = SlowTimeBallSpeed;
+        print("Ball is slowed...");
+        yield return new WaitForSeconds(SlowTimeDuration);
+        print("Ball is back to speed...");
+        isActive_SlowTime = false;
+        Ball.speed = TempBallSpeed;
     }
 
     IEnumerator P1_SlowTimeCooldown()
     {
         print("Player 1 slow time cooldown begins...");
-        yield return new WaitForSeconds(CooldownTime);
+        yield return new WaitForSeconds(CooldownDuration);
         print("Player 1 slow time cooldown is over!");
         isSlowTimeCooldown_P1 = false;
     }
@@ -78,7 +107,7 @@ public class Abilities : MonoBehaviour
     IEnumerator P2_SlowTimeCooldown()
     {
         print("Player 2 slow time cooldown begins...");
-        yield return new WaitForSeconds(CooldownTime);
+        yield return new WaitForSeconds(CooldownDuration);
         print("Player 2 slow time cooldown is over!");
         isSlowTimeCooldown_P2 = false;
     }
