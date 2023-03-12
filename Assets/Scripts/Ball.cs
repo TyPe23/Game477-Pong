@@ -20,6 +20,11 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private float acceleration = 0.5f;
 
+    private float tempSpeed;
+
+    [SerializeField]
+    private Collider2D lastCollision;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,14 +68,62 @@ public class Ball : MonoBehaviour
         transform.Translate(dir * speed * Time.deltaTime);
     }
 
+    //void OnTriggerStay2D(Collider2D c)
+    //{
+    //    print(c.name);
+
+    //    if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration <= 1)
+    //    {
+    //        acceleration += 0.1f;
+    //    }
+    //}
+
+    //void OnTriggerExit2D(Collider2D c)
+    //{
+    //    if (c.gameObject.CompareTag("PaddleLeft"))
+    //    {
+    //        dir.x = 1;
+    //        speed = tempSpeed + acceleration;
+    //    }
+
+    //    if (c.gameObject.CompareTag("PaddleRight"))
+    //    {
+    //        dir.x = -1;
+    //        speed = tempSpeed + acceleration;
+    //    }
+    //}
+
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        //if (c.gameObject.transform.tag.StartsWith("Paddle") c != lastCollision)
+        //{
+        //    print(c);
+        //    tempSpeed = speed;
+        //    speed = 0;
+        //    acceleration = 0.5f;
+        //    lastCollision = c;
+        //}
+        if (c != lastCollision)
+        {
+            if (c.gameObject.CompareTag("PaddleLeft"))
+            {
+                dir.x = 1;
+                speed += acceleration;
+            }
+
+            if (c.gameObject.CompareTag("PaddleRight"))
+            {
+                dir.x = -1;
+                speed += acceleration;
+            }
+
+            lastCollision = c;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D c) 
     {
-        if (c.gameObject.transform.tag.StartsWith("Paddle"))
-        {
-            dir.x *= -1;
-            speed += acceleration;
-        }
-        else if (c.gameObject.CompareTag("TopBottom Boundary"))
+        if (c.gameObject.CompareTag("TopBottom Boundary"))
         {
             dir.y *= -1;
         }

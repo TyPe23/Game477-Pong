@@ -21,6 +21,10 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PaddleLeft.GetComponent<BoxCollider2D>().enabled = false;
+        PaddleRight.GetComponent<BoxCollider2D>().enabled = false;
+
+
         if (Input.GetKey(KeyCode.LeftShift)) 
         {
             leftMod = 2;
@@ -39,7 +43,7 @@ public class Paddle : MonoBehaviour
         }
 
 
-        PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, Mathf.Abs(Mathf.Sin(Time.time)));
+        PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
         if (Input.GetKey(KeyCode.UpArrow) && PaddleRight.transform.position.y <= 4) 
         {
             PaddleRight.transform.Translate(Vector3.up * speed * rightMod * Time.deltaTime);
@@ -48,8 +52,20 @@ public class Paddle : MonoBehaviour
         {
         PaddleRight.transform.Translate(-Vector3.up * speed * rightMod * Time.deltaTime);
         }
-        
-        PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(Mathf.Abs(Mathf.Sin(Time.time)), 0, Mathf.Abs(Mathf.Sin(Time.time)));
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+            PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+            PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+
+        PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 0.5f);
         if (Input.GetKey(KeyCode.W) && PaddleLeft.transform.position.y <= 4) 
         {
            PaddleLeft.transform.Translate(Vector3.up * speed * leftMod * Time.deltaTime);
@@ -57,6 +73,17 @@ public class Paddle : MonoBehaviour
         if (Input.GetKey(KeyCode.S) && PaddleLeft.transform.position.y >= -4) 
         {
             PaddleLeft.transform.Translate(-Vector3.up * speed * leftMod * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
+            PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
+            PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 }

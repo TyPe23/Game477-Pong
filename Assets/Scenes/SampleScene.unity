@@ -272,6 +272,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49803922
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
 --- !u!1 &395113716 stripped
@@ -734,8 +746,8 @@ GameObject:
   - component: {fileID: 640877028}
   - component: {fileID: 640877027}
   - component: {fileID: 640877029}
-  - component: {fileID: 640877030}
   - component: {fileID: 640877031}
+  - component: {fileID: 640877032}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -829,22 +841,7 @@ MonoBehaviour:
   speed: 2
   dir: {x: 0, y: 0}
   acceleration: 0.5
---- !u!58 &640877030
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640877026}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  lastCollision: {fileID: 0}
 --- !u!50 &640877031
 Rigidbody2D:
   serializedVersion: 4
@@ -864,8 +861,24 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!58 &640877032
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640877026}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.545
 --- !u!1 &651307329 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4165905198035944209, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
@@ -1638,8 +1651,16 @@ PrefabInstance:
       value: 1.09
       objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Offset.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944211, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -1653,6 +1674,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -429501263, guid: 0207bcbadc2fb4634b478932541a9567, type: 3}
+    - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49803922
+      objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Color.b
       value: 0
