@@ -22,7 +22,6 @@ public class Ball : MonoBehaviour
 
     private float tempSpeed;
 
-    [SerializeField]
     private Collider2D lastCollision;
 
     // Start is called before the first frame update
@@ -39,6 +38,7 @@ public class Ball : MonoBehaviour
 
     void spawnBall()
     {
+        lastCollision = null;
         transform.position = origPos;
         speed = origSpeed;
 
@@ -68,55 +68,40 @@ public class Ball : MonoBehaviour
         transform.Translate(dir * speed * Time.deltaTime);
     }
 
-    //void OnTriggerStay2D(Collider2D c)
-    //{
-    //    print(c.name);
+    void OnTriggerStay2D(Collider2D c)
+    {
+        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration <= 1)
+        {
+            acceleration += 1 * Time.deltaTime;
+        }
+        else
+        {
+            OnTriggerExit2D(c);
+        }
+    }
 
-    //    if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration <= 1)
-    //    {
-    //        acceleration += 0.1f;
-    //    }
-    //}
+    void OnTriggerExit2D(Collider2D c)
+    {
+        if (c.gameObject.CompareTag("PaddleLeft"))
+        {
+            dir.x = 1;
+            speed = tempSpeed + acceleration;
+        }
 
-    //void OnTriggerExit2D(Collider2D c)
-    //{
-    //    if (c.gameObject.CompareTag("PaddleLeft"))
-    //    {
-    //        dir.x = 1;
-    //        speed = tempSpeed + acceleration;
-    //    }
-
-    //    if (c.gameObject.CompareTag("PaddleRight"))
-    //    {
-    //        dir.x = -1;
-    //        speed = tempSpeed + acceleration;
-    //    }
-    //}
+        if (c.gameObject.CompareTag("PaddleRight"))
+        {
+            dir.x = -1;
+            speed = tempSpeed + acceleration;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        //if (c.gameObject.transform.tag.StartsWith("Paddle") c != lastCollision)
-        //{
-        //    print(c);
-        //    tempSpeed = speed;
-        //    speed = 0;
-        //    acceleration = 0.5f;
-        //    lastCollision = c;
-        //}
-        if (c != lastCollision)
+        if (c.gameObject.transform.tag.StartsWith("Paddle") && c != lastCollision)
         {
-            if (c.gameObject.CompareTag("PaddleLeft"))
-            {
-                dir.x = 1;
-                speed += acceleration;
-            }
-
-            if (c.gameObject.CompareTag("PaddleRight"))
-            {
-                dir.x = -1;
-                speed += acceleration;
-            }
-
+            tempSpeed = speed;
+            speed = 0;
+            acceleration = 0;
             lastCollision = c;
         }
     }

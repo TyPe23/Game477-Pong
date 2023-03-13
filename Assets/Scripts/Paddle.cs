@@ -21,10 +21,6 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PaddleLeft.GetComponent<BoxCollider2D>().enabled = false;
-        PaddleRight.GetComponent<BoxCollider2D>().enabled = false;
-
-
         if (Input.GetKey(KeyCode.LeftShift)) 
         {
             leftMod = 2;
@@ -58,10 +54,14 @@ public class Paddle : MonoBehaviour
             PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
             PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
             PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        else
+        {
+            PaddleRight.GetComponent<BoxCollider2D>().enabled = false;
         }
 
 
@@ -80,10 +80,14 @@ public class Paddle : MonoBehaviour
             PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
             PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
             PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        else
+        {
+            PaddleLeft.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
