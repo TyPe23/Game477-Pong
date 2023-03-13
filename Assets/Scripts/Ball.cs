@@ -24,6 +24,8 @@ public class Ball : MonoBehaviour
 
     private Collider2D lastCollision;
 
+    private bool bounce;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,9 +72,15 @@ public class Ball : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D c)
     {
-        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration <= 1)
+        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration < 1f && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
         {
-            acceleration += 1 * Time.deltaTime;
+            acceleration += 2.2f * Time.deltaTime;
+        }
+        else if (acceleration < 1f)
+        {
+            acceleration = 0.25f;
+            bounce = true;
+            OnTriggerExit2D(c);
         }
         else
         {
@@ -103,6 +111,7 @@ public class Ball : MonoBehaviour
             speed = 0;
             acceleration = 0;
             lastCollision = c;
+            bounce = false;
         }
     }
 

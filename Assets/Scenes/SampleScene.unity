@@ -841,7 +841,6 @@ MonoBehaviour:
   speed: 2
   dir: {x: 0, y: 0}
   acceleration: 0.5
-  lastCollision: {fileID: 0}
 --- !u!50 &640877031
 Rigidbody2D:
   serializedVersion: 4
