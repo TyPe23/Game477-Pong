@@ -26,6 +26,11 @@ public class Ball : MonoBehaviour
 
     private bool bounce;
 
+    private int volleyCount;
+
+    [SerializeField]
+    private float maxAcceleration;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +48,7 @@ public class Ball : MonoBehaviour
         lastCollision = null;
         transform.position = origPos;
         speed = origSpeed;
+        volleyCount = 0;
 
         float result = Random.Range(0f, 1f);
         if (result < 0.5)
@@ -72,9 +78,9 @@ public class Ball : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D c)
     {
-        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration < 1f && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
+        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration < maxAcceleration && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
         {
-            acceleration += 2.2f * Time.deltaTime;
+            acceleration += 1f * Time.deltaTime;
         }
         else if (acceleration < 1f)
         {
@@ -112,6 +118,8 @@ public class Ball : MonoBehaviour
             acceleration = 0;
             lastCollision = c;
             bounce = false;
+            volleyCount++;
+            maxAcceleration = 1f + (volleyCount / 0.5f);
         }
     }
 
