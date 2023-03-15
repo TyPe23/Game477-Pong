@@ -20,7 +20,7 @@ public class Ball : MonoBehaviour
     private float origSpeed;
     private Vector2 dir;
     private Vector2 origPos;
-    private float acceleration;
+    public float acceleration;
     private float tempSpeed;
     private Collider2D lastCollision;
     private bool bounce;

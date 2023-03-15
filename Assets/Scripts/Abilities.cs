@@ -125,6 +125,11 @@ public class Abilities : MonoBehaviour
     IEnumerator SlowTime()
     {
         TempBallSpeed = Ball.speed;
+        if (TempBallSpeed == 0)
+        {
+            // kind of a hacky fix, doesn't feel awful when playing, but suboptimal
+            TempBallSpeed = Ball.acceleration + 2;
+        }
         Ball.speed = SlowTimeBallSpeed;
         print("Ball is slowed...");
         yield return new WaitForSeconds(SlowTimeDuration);
