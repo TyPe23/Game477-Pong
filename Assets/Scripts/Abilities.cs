@@ -16,13 +16,21 @@ public class Abilities : MonoBehaviour
     private Ball Ball;
     public GameObject ball;
 
+    private Paddle Paddle;
+    public GameObject Paddles;
+
     float CooldownDuration = 10f;
-    float SlowTimeDuration = 1f;
 
     bool isSlowTimeCooldown_P1 = false;
     bool isSlowTimeCooldown_P2 = false;
     bool isActive_SlowTime = false;
 
+    bool isFlipControlCooldown_P1 = false;
+    bool isFlipControlCooldown_P2 = false;
+    bool isActive_FlipControls = false;
+    float FlipControlsDuration = 5f;
+
+    float SlowTimeDuration = 1f;
     float SlowTimeBallSpeed = 0.5f;
     float TempBallSpeed;
 
@@ -30,6 +38,7 @@ public class Abilities : MonoBehaviour
     {
         // Good code lmao
         Ball = ball.GetComponent<Ball>();
+        Paddle = Paddles.GetComponent<Paddle>();
         InitializeAbilities();
     }
 
@@ -54,7 +63,7 @@ public class Abilities : MonoBehaviour
         SetPlayer1ActiveAbilities();
         SetPlayer2ActiveAbilities();
 
-        if (Input.GetKeyDown("1") && Player1Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime)
+        if (Input.GetKeyDown("1") && Player1Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P1)
         {
             // Disable ability
             isActive_SlowTime = true;
@@ -68,8 +77,22 @@ public class Abilities : MonoBehaviour
             // Place ability on cooldown
             StartCoroutine(P1_SlowTimeCooldown());
         }
+        if (Input.GetKeyDown("2") && Player1Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P1)
+        {
+            // Disable ability
+            isActive_FlipControls = true;
+            isFlipControlCooldown_P1 = true;
+            Player1Abilities[AbilityType.FlipControls] = false;
 
-        if (Input.GetKeyDown("8") && Player2Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime)
+            // Flip enemy controls
+            StartCoroutine(FlipControls("P2"));
+
+            // Place ability on cooldown
+            StartCoroutine(P1_FlipControlsCooldown());
+        }
+        
+
+        if (Input.GetKeyDown(".") && Player2Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P2)
         {
             // Disable ability
             isActive_SlowTime = true;
@@ -83,6 +106,20 @@ public class Abilities : MonoBehaviour
             // Place ability on cooldown
             StartCoroutine(P2_SlowTimeCooldown());
         }
+        if (Input.GetKeyDown("/") && Player2Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P2)
+        {
+            // Disable ability
+            isActive_FlipControls = true;
+            isFlipControlCooldown_P2 = true;
+            Player2Abilities[AbilityType.FlipControls] = false;
+
+            // Flip enemy controls
+            StartCoroutine(FlipControls("P1"));
+
+            // Place ability on cooldown
+            StartCoroutine(P2_FlipControlsCooldown());
+        }
+        
     }
 
     IEnumerator SlowTime()
@@ -94,6 +131,54 @@ public class Abilities : MonoBehaviour
         print("Ball is back to speed...");
         isActive_SlowTime = false;
         Ball.speed = TempBallSpeed;
+    }
+
+    IEnumerator FlipControls(string enemy)
+    {
+        if (enemy == "P1")
+        {
+            var P1_up = Paddle.P1_up;
+            Paddle.P1_up = Paddle.P1_down;
+            Paddle.P1_down = P1_up;
+        }
+        else if (enemy == "P2")
+        {
+            var P2_up = Paddle.P2_up;
+            Paddle.P2_up = Paddle.P2_down;
+            Paddle.P2_down = P2_up;
+        }
+        print(enemy + " controls flipped!");
+        yield return new WaitForSeconds(FlipControlsDuration);
+        if (enemy == "P1")
+        {
+            var P1_down = Paddle.P1_up;
+            Paddle.P1_up = Paddle.P1_down;
+            Paddle.P1_down = P1_down;
+        }
+        else if (enemy == "P2")
+        {
+            var P2_down = Paddle.P2_up;
+            Paddle.P2_up = Paddle.P2_down;
+            Paddle.P2_down = P2_down;
+        }
+        print(enemy + " controls back to normal!");
+        isActive_FlipControls = false;
+    }
+
+    IEnumerator P1_FlipControlsCooldown()
+    {
+        print("Player 1 flip controls cooldown begins...");
+        yield return new WaitForSeconds(CooldownDuration);
+        print("Player 1 flip controls cooldown is over!");
+        isFlipControlCooldown_P1 = false;
+    }
+
+    IEnumerator P2_FlipControlsCooldown()
+    {
+        print("Player 2 flip controls cooldown begins...");
+        yield return new WaitForSeconds(CooldownDuration);
+        print("Player 2 flip controls cooldown is over!");
+        isFlipControlCooldown_P2 = false;
     }
 
     IEnumerator P1_SlowTimeCooldown()
@@ -114,15 +199,12 @@ public class Abilities : MonoBehaviour
 
     void SetPlayer1ActiveAbilities()
     {
-        if (Ball.scoreLeft >= 9)
+        if (Ball.scoreLeft >= 4)
         {
-            //Player1Abilities[AbilityType.ShrinkBall] = true;
+            Player1Abilities[AbilityType.FlipControls] = true;
+            Player1Abilities[AbilityType.SlowTime] = true;
         }
-        else if (Ball.scoreLeft >= 6)
-        {
-            //Player1Abilities[AbilityType.FlipControls] = true;
-        }
-        else if (Ball.scoreLeft >= 3 && !isSlowTimeCooldown_P1)
+        else if (Ball.scoreLeft >= 2)
         {
             Player1Abilities[AbilityType.SlowTime] = true;
         }        
@@ -130,15 +212,12 @@ public class Abilities : MonoBehaviour
 
     void SetPlayer2ActiveAbilities()
     {
-        if (Ball.scoreRight >= 9)
+        if (Ball.scoreRight >= 4)
         {
-            //Player2Abilities[AbilityType.ShrinkBall] = true;
+            Player2Abilities[AbilityType.FlipControls] = true;
+            Player2Abilities[AbilityType.SlowTime] = true;
         }
-        else if (Ball.scoreRight >= 6)
-        {
-            //Player2Abilities[AbilityType.FlipControls] = true;
-        }
-        else if (Ball.scoreRight >= 3 && !isSlowTimeCooldown_P2)
+        else if (Ball.scoreRight >= 2)
         {
             Player2Abilities[AbilityType.SlowTime] = true;
         }

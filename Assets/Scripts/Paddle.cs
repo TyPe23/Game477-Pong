@@ -12,6 +12,11 @@ public class Paddle : MonoBehaviour
     public GameObject PaddleLeft;
     public GameObject PaddleRight;
 
+    public KeyCode P1_up = KeyCode.W;
+    public KeyCode P1_down = KeyCode.S;
+    public KeyCode P2_up = KeyCode.UpArrow;
+    public KeyCode P2_down = KeyCode.DownArrow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,11 +48,11 @@ public class Paddle : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.UpArrow) && PaddleRight.transform.position.y <= 4) 
+        if (Input.GetKey(P2_up) && PaddleRight.transform.position.y <= 4) 
         {
             PaddleRight.transform.Translate(Vector3.up * speed * rightMod * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.DownArrow) && PaddleRight.transform.position.y >= -4) 
+        if (Input.GetKey(P2_down) && PaddleRight.transform.position.y >= -4) 
         {
         PaddleRight.transform.Translate(-Vector3.up * speed * rightMod * Time.deltaTime);
         }
@@ -68,11 +73,11 @@ public class Paddle : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.W) && PaddleLeft.transform.position.y <= 4) 
+        if (Input.GetKey(P1_up) && PaddleLeft.transform.position.y <= 4) 
         {
            PaddleLeft.transform.Translate(Vector3.up * speed * leftMod * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S) && PaddleLeft.transform.position.y >= -4) 
+        if (Input.GetKey(P1_down) && PaddleLeft.transform.position.y >= -4) 
         {
             PaddleLeft.transform.Translate(-Vector3.up * speed * leftMod * Time.deltaTime);
         }
