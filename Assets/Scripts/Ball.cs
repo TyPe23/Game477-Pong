@@ -119,7 +119,7 @@ public class Ball : MonoBehaviour
             lastCollision = c;
             bounce = false;
             volleyCount++;
-            maxAcceleration = 1f + (volleyCount / 0.5f);
+            maxAcceleration = 1f + (volleyCount / 2f);
         }
     }
 
