@@ -17,18 +17,29 @@ public class Paddle : MonoBehaviour
     public KeyCode P2_up = KeyCode.UpArrow;
     public KeyCode P2_down = KeyCode.DownArrow;
 
+    private SpriteRenderer leftColor;
+    private SpriteRenderer rightColor;
+    private BoxCollider2D leftCollider;
+    private BoxCollider2D rightCollider;
+
+    public Transform topPos;
+    public Transform bottomPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        leftColor = PaddleLeft.GetComponent<SpriteRenderer>();
+        rightColor = PaddleRight.GetComponent<SpriteRenderer>();
+        leftCollider = PaddleLeft.GetComponent<BoxCollider2D>();
+        rightCollider = PaddleRight.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 0.75f);
-        PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 0.75f);
+        leftColor.color = new Color(1, 0.5f, 0, 0.75f);
+        rightColor.color = new Color(1, 0.5f, 0, 0.75f);
 
         if (Input.GetKey(KeyCode.LeftShift)) 
         {
@@ -38,7 +49,7 @@ public class Paddle : MonoBehaviour
         {
             leftMod = 1;
         }
-        if (Input.GetKey(KeyCode.RightShift))
+        if (Input.GetKey(KeyCode.RightControl))
         {
             rightMod = 2;
         }
@@ -48,53 +59,53 @@ public class Paddle : MonoBehaviour
         }
 
 
-        if (Input.GetKey(P2_up) && PaddleRight.transform.position.y <= 4) 
+        if (Input.GetKey(P2_up) && PaddleRight.transform.position.y <= topPos.position.y - 1) 
         {
             PaddleRight.transform.Translate(Vector3.up * speed * rightMod * Time.deltaTime);
         }
-        if (Input.GetKey(P2_down) && PaddleRight.transform.position.y >= -4) 
+        if (Input.GetKey(P2_down) && PaddleRight.transform.position.y >= bottomPos.position.y + 1) 
         {
-        PaddleRight.transform.Translate(-Vector3.up * speed * rightMod * Time.deltaTime);
+            PaddleRight.transform.Translate(-Vector3.up * speed * rightMod * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
-            PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
+            rightColor.color = new Color(1, 0.5f, 0, 1);
+            rightCollider.enabled = true;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
-            PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
+            rightColor.color = new Color(1, 0.5f, 0, 1);
+            rightCollider.enabled = true;
         }
         else
         {
-            PaddleRight.GetComponent<BoxCollider2D>().enabled = false;
+            rightCollider.enabled = false;
         }
 
 
-        if (Input.GetKey(P1_up) && PaddleLeft.transform.position.y <= 4) 
+        if (Input.GetKey(P1_up) && PaddleLeft.transform.position.y <= topPos.position.y - 1) 
         {
            PaddleLeft.transform.Translate(Vector3.up * speed * leftMod * Time.deltaTime);
         }
-        if (Input.GetKey(P1_down) && PaddleLeft.transform.position.y >= -4) 
+        if (Input.GetKey(P1_down) && PaddleLeft.transform.position.y >= bottomPos.position.y + 1) 
         {
             PaddleLeft.transform.Translate(-Vector3.up * speed * leftMod * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
-            PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
+            leftColor.color = new Color(1, 0.5f, 0, 1);
+            leftCollider.enabled = true;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
-            PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
+            leftColor.color = new Color(1, 0.5f, 0, 1);
+            leftCollider.enabled = true;
         }
         else
         {
-            PaddleLeft.GetComponent<BoxCollider2D>().enabled = false;
+            leftCollider.enabled = false;
         }
     }
 }

@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour
     private float tempSpeed;
     private Collider2D lastCollision;
     private bool bounce;
-    private int volleyCount;
+    public int volleyCount;
     private float maxAcceleration;
 
     private Vector2 origBT;
@@ -33,6 +33,9 @@ public class Ball : MonoBehaviour
     private Vector2 origBR;
     private Vector2 origPL;
     private Vector2 origPR;
+
+    private Transform particleTransform;
+    private ParticleSystem particles;
 
 
     // Start is called before the first frame update
@@ -52,7 +55,10 @@ public class Ball : MonoBehaviour
         origPL = paddleL.transform.localScale;
         origPR = paddleR.transform.localScale;
         spawnBall();
-}
+
+        particleTransform = GetComponentsInChildren<Transform>()[1];
+        particles = GetComponentInChildren<ParticleSystem>();
+    }
 
     void spawnBall()
     {
@@ -91,11 +97,19 @@ public class Ball : MonoBehaviour
     void Update()
     {
         transform.Translate(dir * speed * Time.deltaTime);
+        if (boundT.transform.position.y > 3.25f && volleyCount > 10)
+        {
+            boundT.transform.Translate(Vector2.down * 0.5f * Time.deltaTime);
+        }
+        if (boundB.transform.position.y < -3.25f && volleyCount > 10)
+        {
+            boundB.transform.Translate(Vector2.up * 0.5f * Time.deltaTime);
+        }
     }
 
     void OnTriggerStay2D(Collider2D c)
     {
-        if (c.gameObject.transform.tag.StartsWith("Paddle") && acceleration < maxAcceleration && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
+        if (c.tag.StartsWith("Paddle") && acceleration < maxAcceleration && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
         {
             acceleration += 1f * Time.deltaTime;
         }
@@ -109,28 +123,38 @@ public class Ball : MonoBehaviour
         {
             OnTriggerExit2D(c);
         }
+
+        if (!bounce)
+        {
+            particles.startSize = 0.15f;
+            particles.startSpeed = -4;
+            particleTransform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     void OnTriggerExit2D(Collider2D c)
     {
-        if (c.gameObject.CompareTag("PaddleLeft"))
+        if (c.CompareTag("PaddleLeft"))
         {
             dir.x = 1;
             speed = tempSpeed + acceleration;
         }
 
-        if (c.gameObject.CompareTag("PaddleRight"))
+        if (c.CompareTag("PaddleRight"))
         {
             dir.x = -1;
             speed = tempSpeed + acceleration;
         }
 
 
+        particles.startSize = 0.5f;
+        particles.startSpeed = 0.5f;
+        particleTransform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
     }
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.transform.tag.StartsWith("Paddle") && c != lastCollision)
+        if (c.tag.StartsWith("Paddle") && c != lastCollision)
         {
             tempSpeed = speed;
             speed = 0;
