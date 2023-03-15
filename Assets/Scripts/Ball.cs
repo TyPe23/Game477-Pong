@@ -7,29 +7,33 @@ public class Ball : MonoBehaviour
 {
     public TextMeshProUGUI txtScoreLeft;
     public TextMeshProUGUI txtScoreRight;
-
     public int scoreLeft;
     public int scoreRight;
-
-    //[SerializeField]
     public float speed = 4;
+    public GameObject boundT;
+    public GameObject boundB;
+    public GameObject boundL;
+    public GameObject boundR;
+    public GameObject paddleL;
+    public GameObject paddleR;
+
     private float origSpeed;
-    public Vector2 dir;
+    private Vector2 dir;
     private Vector2 origPos;
-
-    [SerializeField]
-    private float acceleration = 0.5f;
-
+    private float acceleration;
     private float tempSpeed;
-
     private Collider2D lastCollision;
-
     private bool bounce;
-
     private int volleyCount;
-
-    [SerializeField]
     private float maxAcceleration;
+
+    private Vector2 origBT;
+    private Vector2 origBB;
+    private Vector2 origBL;
+    private Vector2 origBR;
+    private Vector2 origPL;
+    private Vector2 origPR;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +44,15 @@ public class Ball : MonoBehaviour
         txtScoreRight.text = "0";
         origPos = transform.position;
         origSpeed = speed;
+
+        origBT = boundT.transform.position;
+        origBB = boundB.transform.position;
+        origBL = boundL.transform.localScale;
+        origBR = boundR.transform.localScale;
+        origPL = paddleL.transform.localScale;
+        origPR = paddleR.transform.localScale;
         spawnBall();
-    }
+}
 
     void spawnBall()
     {
@@ -49,6 +60,12 @@ public class Ball : MonoBehaviour
         transform.position = origPos;
         speed = origSpeed;
         volleyCount = 0;
+        boundT.transform.position = origBT;
+        boundB.transform.position = origBB;
+        boundL.transform.localScale = origBL;
+        boundR.transform.localScale = origBR;
+        paddleL.transform.localScale = origPL;
+        paddleR.transform.localScale = origPR;
 
         float result = Random.Range(0f, 1f);
         if (result < 0.5)
@@ -107,6 +124,8 @@ public class Ball : MonoBehaviour
             dir.x = -1;
             speed = tempSpeed + acceleration;
         }
+
+
     }
 
     void OnTriggerEnter2D(Collider2D c)
@@ -119,7 +138,7 @@ public class Ball : MonoBehaviour
             lastCollision = c;
             bounce = false;
             volleyCount++;
-            maxAcceleration = 1f + (volleyCount / 2f);
+            maxAcceleration = 0.5f + (volleyCount / 4f);
         }
     }
 

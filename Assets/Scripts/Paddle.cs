@@ -21,6 +21,10 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 0.75f);
+        PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 0.75f);
+
         if (Input.GetKey(KeyCode.LeftShift)) 
         {
             leftMod = 2;
@@ -39,7 +43,6 @@ public class Paddle : MonoBehaviour
         }
 
 
-        PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
         if (Input.GetKey(KeyCode.UpArrow) && PaddleRight.transform.position.y <= 4) 
         {
             PaddleRight.transform.Translate(Vector3.up * speed * rightMod * Time.deltaTime);
@@ -51,12 +54,12 @@ public class Paddle : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
             PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+            PaddleRight.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
             PaddleRight.GetComponent<BoxCollider2D>().enabled = true;
         }
         else
@@ -65,7 +68,6 @@ public class Paddle : MonoBehaviour
         }
 
 
-        PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 0.5f);
         if (Input.GetKey(KeyCode.W) && PaddleLeft.transform.position.y <= 4) 
         {
            PaddleLeft.transform.Translate(Vector3.up * speed * leftMod * Time.deltaTime);
@@ -77,12 +79,12 @@ public class Paddle : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
+            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
             PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0, 1, 1);
+            PaddleLeft.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0, 1);
             PaddleLeft.GetComponent<BoxCollider2D>().enabled = true;
         }
         else
