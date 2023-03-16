@@ -6139,6 +6139,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1747451182 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5109446755627597302, guid: ac4272fe3c731564a8e4c5ee56ffa93c, type: 3}
+  m_PrefabInstance: {fileID: 5109446754641795103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1776756410
 GameObject:
   m_ObjectHideFlags: 0
@@ -7593,6 +7598,7 @@ MonoBehaviour:
   paddleL: {fileID: 1826125224}
   paddleR: {fileID: 610688297}
   screenShake: {fileID: 1155539429}
+  gameOver: {fileID: 1747451182}
   acceleration: 0.5
   volleyCount: 0
   PaddleHit: {fileID: 5441395182461156384}
