@@ -37,9 +37,39 @@ public class Abilities : MonoBehaviour
     public AudioSource SlowTimeAudioSource;
     public AudioSource Soundtrack;
 
+    public GameObject P1_SlowTimeIcon;
+    public GameObject P2_SlowTimeIcon;
+    private SpriteRenderer P1_SlowTimeIcon_SpriteRenderer;
+    private Color P1_SlowTimeColor;
+    private SpriteRenderer P2_SlowTimeIcon_SpriteRenderer;
+    private Color P2_SlowTimeColor;
+
+    public GameObject P1_FlipControlsIcon;
+    public GameObject P2_FlipControlsIcon;
+    private SpriteRenderer P1_FlipControlsIcon_SpriteRenderer;
+    private Color P1_FlipControlsColor;
+    private SpriteRenderer P2_FlipControlsIcon_SpriteRenderer;
+    private Color P2_FlipControlsColor;
+
     void Start()
     {
         // Good code lmao
+        P1_SlowTimeIcon_SpriteRenderer = P1_SlowTimeIcon.GetComponent<SpriteRenderer>();
+        P1_SlowTimeColor = new Color(255f,255f,255f,0f);
+        P1_SlowTimeIcon_SpriteRenderer.color = P1_SlowTimeColor;
+
+        P1_FlipControlsIcon_SpriteRenderer = P1_FlipControlsIcon.GetComponent<SpriteRenderer>();
+        P1_FlipControlsColor = new Color(255f,255f,255f,0f);
+        P1_FlipControlsIcon_SpriteRenderer.color = P1_FlipControlsColor;
+
+        P2_SlowTimeIcon_SpriteRenderer = P2_SlowTimeIcon.GetComponent<SpriteRenderer>();
+        P2_SlowTimeColor = new Color(255f,255f,255f,0f);
+        P2_SlowTimeIcon_SpriteRenderer.color = P2_SlowTimeColor;
+
+        P2_FlipControlsIcon_SpriteRenderer = P2_FlipControlsIcon.GetComponent<SpriteRenderer>();
+        P2_FlipControlsColor = new Color(255f,255f,255f,0f);
+        P2_FlipControlsIcon_SpriteRenderer.color = P2_FlipControlsColor;
+
         Ball = ball.GetComponent<Ball>();
         Paddle = Paddles.GetComponent<Paddle>();
         InitializeAbilities();
@@ -151,6 +181,8 @@ public class Abilities : MonoBehaviour
         print("Ball is back to speed...");
         isActive_SlowTime = false;
         Ball.speed = TempBallSpeed;
+
+        
     }
 
     IEnumerator FlipControls(string enemy)
@@ -188,37 +220,64 @@ public class Abilities : MonoBehaviour
     IEnumerator P1_FlipControlsCooldown()
     {
         print("Player 1 flip controls cooldown begins...");
+        P1_FlipControlsColor = new Color(255f,255f,255f,0.3f);
+        P1_FlipControlsIcon_SpriteRenderer.color = P1_FlipControlsColor;
         yield return new WaitForSeconds(CooldownDuration);
         print("Player 1 flip controls cooldown is over!");
+        P1_FlipControlsColor = new Color(255f,255f,255f,0.65f);
+        P1_FlipControlsIcon_SpriteRenderer.color = P1_FlipControlsColor;
         isFlipControlCooldown_P1 = false;
     }
 
     IEnumerator P2_FlipControlsCooldown()
     {
         print("Player 2 flip controls cooldown begins...");
+        P2_FlipControlsColor = new Color(255f,255f,255f,0.3f);
+        P2_FlipControlsIcon_SpriteRenderer.color = P2_FlipControlsColor;
         yield return new WaitForSeconds(CooldownDuration);
         print("Player 2 flip controls cooldown is over!");
+        P2_FlipControlsColor = new Color(255f,255f,255f,0.65f);
+        P2_FlipControlsIcon_SpriteRenderer.color = P2_FlipControlsColor;
         isFlipControlCooldown_P2 = false;
     }
 
     IEnumerator P1_SlowTimeCooldown()
     {
         print("Player 1 slow time cooldown begins...");
+        P1_SlowTimeColor = new Color(255f,255f,255f,0.3f);
+        P1_SlowTimeIcon_SpriteRenderer.color = P1_SlowTimeColor;
         yield return new WaitForSeconds(CooldownDuration);
         print("Player 1 slow time cooldown is over!");
+        P1_SlowTimeColor = new Color(255f,255f,255f,0.65f);
+        P1_SlowTimeIcon_SpriteRenderer.color = P1_SlowTimeColor;
         isSlowTimeCooldown_P1 = false;
     }
 
     IEnumerator P2_SlowTimeCooldown()
     {
         print("Player 2 slow time cooldown begins...");
+        P2_SlowTimeColor = new Color(255f,255f,255f,0.3f);
+        P2_SlowTimeIcon_SpriteRenderer.color = P2_SlowTimeColor;
         yield return new WaitForSeconds(CooldownDuration);
         print("Player 2 slow time cooldown is over!");
+        P2_SlowTimeColor = new Color(255f,255f,255f,0.65f);
+        P2_SlowTimeIcon_SpriteRenderer.color = P1_SlowTimeColor;
         isSlowTimeCooldown_P2 = false;
     }
 
     void SetPlayer1ActiveAbilities()
     {
+        if (!isSlowTimeCooldown_P1 && Ball.scoreLeft >= 2)
+        {
+            P1_SlowTimeColor = new Color(255f,255f,255f,0.65f);
+            P1_SlowTimeIcon_SpriteRenderer.color = P1_SlowTimeColor;
+        }
+        if (!isFlipControlCooldown_P1 && Ball.scoreLeft >= 4)
+        {
+            P1_FlipControlsColor = new Color(255f,255f,255f,0.65f);;
+            P1_FlipControlsIcon_SpriteRenderer.color = P1_FlipControlsColor;
+        }
+
         if (Ball.scoreLeft >= 4)
         {
             Player1Abilities[AbilityType.FlipControls] = true;
@@ -232,6 +291,17 @@ public class Abilities : MonoBehaviour
 
     void SetPlayer2ActiveAbilities()
     {
+        if (!isSlowTimeCooldown_P2 && Ball.scoreRight >= 2)
+        {
+            P2_SlowTimeColor = new Color(255f,255f,255f,0.65f);
+            P2_SlowTimeIcon_SpriteRenderer.color = P2_SlowTimeColor;
+        }
+        if (!isFlipControlCooldown_P2 && Ball.scoreRight >= 4)
+        {
+            P2_FlipControlsColor = new Color(255f,255f,255f,0.65f);;
+            P2_FlipControlsIcon_SpriteRenderer.color = P2_FlipControlsColor;
+        }
+
         if (Ball.scoreRight >= 4)
         {
             Player2Abilities[AbilityType.FlipControls] = true;
