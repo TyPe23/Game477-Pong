@@ -12,10 +12,9 @@ public class Ball : MonoBehaviour
     public float speed = 4;
     public GameObject boundT;
     public GameObject boundB;
-    public GameObject boundL;
-    public GameObject boundR;
     public GameObject paddleL;
     public GameObject paddleR;
+    public screenShake screenShake;
 
     private float origSpeed;
     private Vector2 dir;
@@ -29,13 +28,17 @@ public class Ball : MonoBehaviour
 
     private Vector2 origBT;
     private Vector2 origBB;
-    private Vector2 origBL;
-    private Vector2 origBR;
     private Vector2 origPL;
     private Vector2 origPR;
 
     private Transform particleTransform;
     private ParticleSystem particles;
+
+    private float shakeDur;
+    private float shakeMag;
+    private float dampSpeed;
+
+    public bool wait;
 
 
     // Start is called before the first frame update
@@ -48,28 +51,30 @@ public class Ball : MonoBehaviour
         origPos = transform.position;
         origSpeed = speed;
 
+        shakeDur = screenShake.shakeDuration;
+        shakeMag = screenShake.shakeMagnitude;
+        dampSpeed = screenShake.dampeningSpeed;
+
         origBT = boundT.transform.position;
         origBB = boundB.transform.position;
-        origBL = boundL.transform.localScale;
-        origBR = boundR.transform.localScale;
         origPL = paddleL.transform.localScale;
         origPR = paddleR.transform.localScale;
-        spawnBall();
-
-        particleTransform = GetComponentsInChildren<Transform>()[1];
         particles = GetComponentInChildren<ParticleSystem>();
+        particleTransform = GetComponentsInChildren<Transform>()[1];
+
+        spawnBall();
     }
+
 
     void spawnBall()
     {
         lastCollision = null;
         transform.position = origPos;
         speed = origSpeed;
+        tempSpeed = 0;
         volleyCount = 0;
         boundT.transform.position = origBT;
         boundB.transform.position = origBB;
-        boundL.transform.localScale = origBL;
-        boundR.transform.localScale = origBR;
         paddleL.transform.localScale = origPL;
         paddleR.transform.localScale = origPR;
 
@@ -82,7 +87,9 @@ public class Ball : MonoBehaviour
         {
             dir = Vector2.right;
         }
+
         result = Random.Range(0f, 1f);
+
         if (result < 0.5)
         {
             dir.y = 1;
@@ -97,13 +104,15 @@ public class Ball : MonoBehaviour
     void Update()
     {
         transform.Translate(dir * speed * Time.deltaTime);
-        if (boundT.transform.position.y > 3.25f && volleyCount > 10)
+
+        if (boundT.transform.position.y > 3.25f && (speed > 5f || tempSpeed > 5f))
         {
-            boundT.transform.Translate(Vector2.down * 0.5f * Time.deltaTime);
+            boundT.transform.Translate(Vector2.down * 0.25f * Time.deltaTime);
         }
-        if (boundB.transform.position.y < -3.25f && volleyCount > 10)
+
+        if (boundB.transform.position.y < -3.25f && (speed > 5f || tempSpeed > 5f))
         {
-            boundB.transform.Translate(Vector2.up * 0.5f * Time.deltaTime);
+            boundB.transform.Translate(Vector2.up * 0.25f * Time.deltaTime);
         }
     }
 
@@ -112,6 +121,7 @@ public class Ball : MonoBehaviour
         if (c.tag.StartsWith("Paddle") && acceleration < maxAcceleration && (transform.position.x > 7f || transform.position.x < -7f) && !bounce)
         {
             acceleration += 1f * Time.deltaTime;
+            screenShake.TriggerShake();
         }
         else if (acceleration < 1f)
         {
@@ -126,9 +136,7 @@ public class Ball : MonoBehaviour
 
         if (!bounce)
         {
-            particles.startSize = 0.15f;
-            particles.startSpeed = -4;
-            particleTransform.localScale = new Vector3(1, 1, 1);
+            particleBuild();
         }
     }
 
@@ -146,16 +154,14 @@ public class Ball : MonoBehaviour
             speed = tempSpeed + acceleration;
         }
 
-
-        particles.startSize = 0.5f;
-        particles.startSpeed = 0.5f;
-        particleTransform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+        particleEmit();
     }
 
     void OnTriggerEnter2D(Collider2D c)
     {
         if (c.tag.StartsWith("Paddle") && c != lastCollision)
         {
+            screenShake.TriggerShake();
             tempSpeed = speed;
             speed = 0;
             acceleration = 0;
@@ -170,19 +176,36 @@ public class Ball : MonoBehaviour
     {
         if (c.gameObject.CompareTag("TopBottom Boundary"))
         {
+            screenShake.TriggerShake();
             dir.y *= -1;
         }
         else if (c.gameObject.CompareTag("Left Boundary"))
         {
+            screenShake.TriggerShake();
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
             spawnBall();
         }
         else if (c.gameObject.CompareTag("Right Boundary"))
         {
+            screenShake.TriggerShake();
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
             spawnBall();
         }
+    }
+
+    void particleBuild()
+    {
+        particles.startSize = 0.15f;
+        particles.startSpeed = -4;
+        particleTransform.localScale = new Vector3(1, 1, 1);
+    }
+
+    void particleEmit()
+    {
+        particles.startSize = 0.5f;
+        particles.startSpeed = 0.5f;
+        particleTransform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
     }
 }

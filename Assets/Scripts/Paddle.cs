@@ -14,8 +14,8 @@ public class Paddle : MonoBehaviour
 
     public KeyCode P1_up = KeyCode.W;
     public KeyCode P1_down = KeyCode.S;
-    public KeyCode P2_up = KeyCode.UpArrow;
-    public KeyCode P2_down = KeyCode.DownArrow;
+    public KeyCode P2_up = KeyCode.O;
+    public KeyCode P2_down = KeyCode.L;
 
     private SpriteRenderer leftColor;
     private SpriteRenderer rightColor;
@@ -49,7 +49,7 @@ public class Paddle : MonoBehaviour
         {
             leftMod = 1;
         }
-        if (Input.GetKey(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.RightShift))
         {
             rightMod = 2;
         }
@@ -68,12 +68,7 @@ public class Paddle : MonoBehaviour
             PaddleRight.transform.Translate(-Vector3.up * speed * rightMod * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            rightColor.color = new Color(1, 0.5f, 0, 1);
-            rightCollider.enabled = true;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightAlt))
         {
             rightColor.color = new Color(1, 0.5f, 0, 1);
             rightCollider.enabled = true;
@@ -93,12 +88,7 @@ public class Paddle : MonoBehaviour
             PaddleLeft.transform.Translate(-Vector3.up * speed * leftMod * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            leftColor.color = new Color(1, 0.5f, 0, 1);
-            leftCollider.enabled = true;
-        }
-        else if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
             leftColor.color = new Color(1, 0.5f, 0, 1);
             leftCollider.enabled = true;

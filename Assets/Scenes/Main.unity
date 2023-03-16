@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -311,7 +312,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -359,6 +360,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66fb3145af56c24891ec3115e29d446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0
+  maxShakeTime: 0.125
+  shakeMagnitude: 0.025
+  dampeningSpeed: 1
 --- !u!1 &539365894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682107355601463236, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
@@ -1395,6 +1412,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 539365894}
     - target: {fileID: 5441395183551843640, guid: 9456b253bd152e0429473b7a58f91bee, type: 3}
+      propertyPath: screenShake
+      value: 
+      objectReference: {fileID: 519420033}
+    - target: {fileID: 5441395183551843640, guid: 9456b253bd152e0429473b7a58f91bee, type: 3}
       propertyPath: txtScoreLeft
       value: 
       objectReference: {fileID: 1420068889}
@@ -1463,6 +1484,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6002197986992603685, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.74509805
+      objectReference: {fileID: 0}
     - target: {fileID: 7682107355601463236, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
       propertyPath: m_Name
       value: Paddles
@@ -1512,12 +1537,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7682107355601463242, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
+      propertyPath: P2_up
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682107355601463242, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
       propertyPath: topPos
       value: 
       objectReference: {fileID: 866206191}
     - target: {fileID: 7682107355601463242, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
+      propertyPath: P2_down
+      value: 108
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682107355601463242, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
       propertyPath: bottomPos
       value: 
       objectReference: {fileID: 158117579}
+    - target: {fileID: 7682107355718114438, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.74509805
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
