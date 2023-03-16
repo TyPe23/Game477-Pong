@@ -35,7 +35,8 @@ public class Ball : MonoBehaviour
     private ParticleSystem particles;
 
     public AudioSource PaddleHit;
-    public bool wait;
+    private bool spawn;
+    private float spawnTime;
 
 
     // Start is called before the first frame update
@@ -61,6 +62,8 @@ public class Ball : MonoBehaviour
 
     void spawnBall()
     {
+        spawn = true;
+        spawnTime = 2f;
         lastCollision = null;
         transform.position = origPos;
         speed = origSpeed;
@@ -70,6 +73,8 @@ public class Ball : MonoBehaviour
         boundB.transform.position = origBB;
         paddleL.transform.localScale = origPL;
         paddleR.transform.localScale = origPR;
+
+        particleBuild();
 
         float result = Random.Range(0f, 1f);
         if (result < 0.5)
@@ -96,7 +101,20 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(dir * speed * Time.deltaTime);
+        if (!spawn)
+        {
+            transform.Translate(dir * speed * Time.deltaTime);
+        }
+        else if (spawnTime > 0f)
+        {
+            spawnTime -= Time.deltaTime;
+        }
+        else
+        {
+            spawn = false;
+            particleEmit();
+        }
+
 
         if (boundT.transform.position.y > 3.25f && (speed > 5f || tempSpeed > 5f))
         {
