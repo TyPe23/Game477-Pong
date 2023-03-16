@@ -1411,6 +1411,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2665282784393522295, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
+      propertyPath: m_Name
+      value: P1FlipControlsIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 2665282784613460000, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -1458,6 +1462,18 @@ PrefabInstance:
     - target: {fileID: 2665282784613460003, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
       propertyPath: m_Name
       value: AbilityBars
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665282785120030626, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
+      propertyPath: m_Name
+      value: P2SlowTimeIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665282785235630867, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
+      propertyPath: m_Name
+      value: P2FlipControlsIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665282785249190143, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
+      propertyPath: m_Name
+      value: P1SlowTimeIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}

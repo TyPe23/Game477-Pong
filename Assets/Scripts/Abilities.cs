@@ -19,7 +19,7 @@ public class Abilities : MonoBehaviour
     private Paddle Paddle;
     public GameObject Paddles;
 
-    float CooldownDuration = 10f;
+    float CooldownDuration = 15f;
 
     bool isSlowTimeCooldown_P1 = false;
     bool isSlowTimeCooldown_P2 = false;
@@ -97,7 +97,7 @@ public class Abilities : MonoBehaviour
         SetPlayer1ActiveAbilities();
         SetPlayer2ActiveAbilities();
 
-        if (Input.GetKeyDown("1") && Player1Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P1)
+        if (Input.GetKeyDown("q") && Player1Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P1)
         {
             // Disable ability
             isActive_SlowTime = true;
@@ -113,7 +113,7 @@ public class Abilities : MonoBehaviour
             // Place ability on cooldown
             StartCoroutine(P1_SlowTimeCooldown());
         }
-        if (Input.GetKeyDown("2") && Player1Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P1)
+        if (Input.GetKeyDown("e") && Player1Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P1)
         {
             // Disable ability
             isActive_FlipControls = true;
@@ -128,7 +128,7 @@ public class Abilities : MonoBehaviour
         }
         
 
-        if (Input.GetKeyDown(".") && Player2Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P2)
+        if (Input.GetKeyDown("i") && Player2Abilities[AbilityType.SlowTime] == true && !isActive_SlowTime && !isSlowTimeCooldown_P2)
         {
             // Disable ability
             isActive_SlowTime = true;
@@ -144,7 +144,7 @@ public class Abilities : MonoBehaviour
             // Place ability on cooldown
             StartCoroutine(P2_SlowTimeCooldown());
         }
-        if (Input.GetKeyDown("/") && Player2Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P2)
+        if (Input.GetKeyDown("p") && Player2Abilities[AbilityType.FlipControls] == true && !isActive_FlipControls && !isFlipControlCooldown_P2)
         {
             // Disable ability
             isActive_FlipControls = true;
