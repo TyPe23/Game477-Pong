@@ -236,6 +236,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6002197986992603680, guid: 080c14434986a7044a754528e5e47d5f, type: 3}
   m_PrefabInstance: {fileID: 7682107355066824130}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &497423125 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8475074357393738163, guid: c74a0c6cbb3dd400ebe28389007e2fbd, type: 3}
+  m_PrefabInstance: {fileID: 1703616186}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +882,7 @@ MonoBehaviour:
   ball: {fileID: 640877026}
   Paddles: {fileID: 539365894}
   SlowTimeAudioSource: {fileID: 260346822}
+  Soundtrack: {fileID: 497423125}
 --- !u!4 &1306035640
 Transform:
   m_ObjectHideFlags: 0
