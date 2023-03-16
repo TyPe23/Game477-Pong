@@ -39,7 +39,6 @@ public class Abilities : MonoBehaviour
 
     void Start()
     {
-        //SlowTimeAudioSource = GetComponent<AudioSource>();
         // Good code lmao
         Ball = ball.GetComponent<Ball>();
         Paddle = Paddles.GetComponent<Paddle>();

@@ -34,6 +34,7 @@ public class Ball : MonoBehaviour
     private Transform particleTransform;
     private ParticleSystem particles;
 
+    public AudioSource PaddleHit;
     private float shakeDur;
     private float shakeMag;
     private float dampSpeed;
@@ -155,6 +156,10 @@ public class Ball : MonoBehaviour
         }
 
         particleEmit();
+        if (!PaddleHit.isPlaying)
+        {
+            PaddleHit.Play();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D c)
