@@ -35,10 +35,6 @@ public class Ball : MonoBehaviour
     private ParticleSystem particles;
 
     public AudioSource PaddleHit;
-    private float shakeDur;
-    private float shakeMag;
-    private float dampSpeed;
-
     public bool wait;
 
 
@@ -51,10 +47,6 @@ public class Ball : MonoBehaviour
         txtScoreRight.text = "0";
         origPos = transform.position;
         origSpeed = speed;
-
-        shakeDur = screenShake.shakeDuration;
-        shakeMag = screenShake.shakeMagnitude;
-        dampSpeed = screenShake.dampeningSpeed;
 
         origBT = boundT.transform.position;
         origBB = boundB.transform.position;
