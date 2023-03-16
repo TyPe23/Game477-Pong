@@ -49,6 +49,12 @@ MonoBehaviour:
   speed: 6
   PaddleLeft: {fileID: 6002197986992603680}
   PaddleRight: {fileID: 7682107355718114435}
+  P1_up: 119
+  P1_down: 115
+  P2_up: 111
+  P2_down: 108
+  topPos: {fileID: 0}
+  bottomPos: {fileID: 0}
 --- !u!1001 &6002197986738478994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: -429501263, guid: 0207bcbadc2fb4634b478932541a9567, type: 3}
     - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Color.a
-      value: 0.49803922
+      value: 0.74509805
       objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Color.b
@@ -241,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Color.a
-      value: 0.49803922
+      value: 0.74509805
       objectReference: {fileID: 0}
     - target: {fileID: 4165905198035944212, guid: fce0d5c3010644271ba82657d8fe885a, type: 3}
       propertyPath: m_Color.g
