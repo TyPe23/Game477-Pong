@@ -1425,7 +1425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2665282784613460000, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.617469
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 2665282784613460000, guid: d6d2d5351b4a3456d8c3a9e6aba2c503, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1667,6 +1667,10 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 1309312320}
+    - target: {fileID: 5441395183551843640, guid: 9456b253bd152e0429473b7a58f91bee, type: 3}
+      propertyPath: GoalExplo
+      value: 
+      objectReference: {fileID: 7189695947725250788, guid: ad224a09fba70ec459e6146e8f2cc038, type: 3}
     - target: {fileID: 5441395183551843640, guid: 9456b253bd152e0429473b7a58f91bee, type: 3}
       propertyPath: PaddleHit
       value: 

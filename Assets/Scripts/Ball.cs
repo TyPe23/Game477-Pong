@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour
     public GameObject gameOver;
     public GameObject boundExplo;
     public GameObject PaddleExplo;
+    public GameObject GoalExplo;
     public GameObject distractions;
    
 
@@ -211,6 +212,7 @@ public class Ball : MonoBehaviour
         }
         else if (c.gameObject.CompareTag("Left Boundary"))
         {
+            var goalParticles = Instantiate(GoalExplo, c.contacts[0].point, Quaternion.Euler(0, 90, 0));
             screenShake.TriggerShake();
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
@@ -225,9 +227,11 @@ public class Ball : MonoBehaviour
             {
                 spawnBall();
             }
+            Destroy(goalParticles, 1f);
         }
         else if (c.gameObject.CompareTag("Right Boundary"))
         {
+            var goalParticles = Instantiate(GoalExplo, c.contacts[0].point, Quaternion.Euler(0, -90, 0));
             screenShake.TriggerShake();
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
@@ -242,6 +246,7 @@ public class Ball : MonoBehaviour
             {
             spawnBall();
             }
+            Destroy(goalParticles, 1f);
         }
     }
 
