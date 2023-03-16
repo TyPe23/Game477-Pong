@@ -34,13 +34,18 @@ public class Abilities : MonoBehaviour
     float SlowTimeBallSpeed = 0.5f;
     float TempBallSpeed;
 
+    public AudioSource SlowTimeAudioSource;
+    public AudioSource Soundtrack;
+
     void Start()
     {
+        //SlowTimeAudioSource = GetComponent<AudioSource>();
         // Good code lmao
         Ball = ball.GetComponent<Ball>();
         Paddle = Paddles.GetComponent<Paddle>();
         InitializeAbilities();
     }
+
 
     private void InitializeAbilities()
     {
@@ -69,6 +74,8 @@ public class Abilities : MonoBehaviour
             isActive_SlowTime = true;
             isSlowTimeCooldown_P1 = true;
             Player1Abilities[AbilityType.SlowTime] = false;
+            StartCoroutine(LowerSoundtrackVolume());
+            SlowTimeAudioSource.Play();
 
             // Slow down the ball
             print("Player 1 slowed down time!");
@@ -98,6 +105,8 @@ public class Abilities : MonoBehaviour
             isActive_SlowTime = true;
             isSlowTimeCooldown_P2 = true;
             Player2Abilities[AbilityType.SlowTime] = false;
+            StartCoroutine(LowerSoundtrackVolume());
+            SlowTimeAudioSource.Play();
 
             // Slow down the ball
             print("Player 2 slowed down time!");
@@ -120,6 +129,13 @@ public class Abilities : MonoBehaviour
             StartCoroutine(P2_FlipControlsCooldown());
         }
         
+    }
+
+    IEnumerator LowerSoundtrackVolume()
+    {
+        Soundtrack.volume = 0.1f;
+        yield return new WaitForSeconds(SlowTimeDuration + 0.5f);
+        Soundtrack.volume = 0.5f;
     }
 
     IEnumerator SlowTime()
