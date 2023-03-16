@@ -201,7 +201,7 @@ public class Ball : MonoBehaviour
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
 
-            if (scoreRight > 4)
+            if (scoreRight > 7)
             {
                 gameOver.SetActive(true);
                 gameObject.SetActive(false);
@@ -217,7 +217,7 @@ public class Ball : MonoBehaviour
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
 
-            if (scoreLeft > 4)
+            if (scoreLeft > 7)
             {
                 gameOver.SetActive(true);
                 gameObject.SetActive(false);
