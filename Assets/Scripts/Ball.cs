@@ -16,6 +16,10 @@ public class Ball : MonoBehaviour
     public GameObject paddleR;
     public screenShake screenShake;
     public GameObject gameOver;
+    public GameObject boundExplo;
+    public GameObject PaddleExplo;
+    public GameObject distractions;
+   
 
     private float origSpeed;
     private Vector2 dir;
@@ -38,7 +42,7 @@ public class Ball : MonoBehaviour
     public AudioSource PaddleHit;
     private bool spawn;
     private float spawnTime;
-
+    private GameObject distractionInst;
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +101,8 @@ public class Ball : MonoBehaviour
         {
             dir.y = -1;
         }
+
+        distractionInst = Instantiate(distractions, new Vector3(13.45712f, 7.660254f, 0), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -154,16 +160,20 @@ public class Ball : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D c)
     {
+        GameObject padExplo = null;
+
         if (c.CompareTag("PaddleLeft"))
         {
             dir.x = 1;
             speed = tempSpeed + acceleration;
+            padExplo = Instantiate(PaddleExplo, transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0, 90, 0));
         }
 
         if (c.CompareTag("PaddleRight"))
         {
             dir.x = -1;
             speed = tempSpeed + acceleration;
+            padExplo = Instantiate(PaddleExplo, transform.position + new Vector3(0, 0, 0), Quaternion.Euler(0, -90, 0));
         }
 
         particleEmit();
@@ -171,6 +181,8 @@ public class Ball : MonoBehaviour
         {
             PaddleHit.Play();
         }
+
+        Destroy(padExplo, 0.5f);
     }
 
     void OnTriggerEnter2D(Collider2D c)
@@ -192,14 +204,17 @@ public class Ball : MonoBehaviour
     {
         if (c.gameObject.CompareTag("TopBottom Boundary"))
         {
+            var boundParticles = Instantiate(boundExplo, c.contacts[0].point, Quaternion.identity);
             screenShake.TriggerShake();
             dir.y *= -1;
+            Destroy(boundParticles, 0.5f);
         }
         else if (c.gameObject.CompareTag("Left Boundary"))
         {
             screenShake.TriggerShake();
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
+            Destroy(distractionInst);
 
             if (scoreRight > 7)
             {
@@ -216,6 +231,7 @@ public class Ball : MonoBehaviour
             screenShake.TriggerShake();
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
+            Destroy(distractionInst);
 
             if (scoreLeft > 7)
             {
