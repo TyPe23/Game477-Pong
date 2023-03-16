@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour
     public GameObject paddleL;
     public GameObject paddleR;
     public screenShake screenShake;
+    public GameObject gameOver;
 
     private float origSpeed;
     private Vector2 dir;
@@ -56,11 +57,11 @@ public class Ball : MonoBehaviour
         particles = GetComponentInChildren<ParticleSystem>();
         particleTransform = GetComponentsInChildren<Transform>()[1];
 
-        spawnBall();
+        //spawnBall();
     }
 
 
-    void spawnBall()
+    public void spawnBall()
     {
         spawn = true;
         spawnTime = 2f;
@@ -199,14 +200,32 @@ public class Ball : MonoBehaviour
             screenShake.TriggerShake();
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
-            spawnBall();
+
+            if (scoreRight > 4)
+            {
+                gameOver.SetActive(true);
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                spawnBall();
+            }
         }
         else if (c.gameObject.CompareTag("Right Boundary"))
         {
             screenShake.TriggerShake();
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
+
+            if (scoreLeft > 4)
+            {
+                gameOver.SetActive(true);
+                gameObject.SetActive(false);
+            }
+            else
+            {
             spawnBall();
+            }
         }
     }
 
